@@ -106,3 +106,6 @@ public class BlankFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
+
+
