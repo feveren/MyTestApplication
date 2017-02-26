@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rent.mytestapplication.AnimActivity">
+
+    <Button
+        android:id="@+id/showOrHide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="showOrHide"
+        android:text="button" />
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="setPaddingTop"
+            android:text="set paddingTop" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="setMarginTop"
+            android:text="set marginTop" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/showPosition"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="setY"
+            android:text="set Y" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="setTranslationY"
+            android:text="set TranslationY" />
+
+        <Button
+            android:id="@+id/setTop"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="setTop"
+            android:text="set top" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/showPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/showOrHide"
+        android:onClick="showPosition"
+        android:text="show position" />
+
+    <Button
+        android:id="@+id/target"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="target" />
+
+    <View
+        android:id="@+id/top_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="-200dp"
+        android:background="@android:color/darker_gray" />
+
+</RelativeLayout>

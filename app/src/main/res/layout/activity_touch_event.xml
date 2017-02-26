@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_touch_event"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rent.mytestapplication.touchevent.TouchEventActivity">
+
+    <com.rent.mytestapplication.touchevent.LogScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.rent.mytestapplication.touchevent.LogLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ViewGroup" />
+
+            <com.rent.mytestapplication.touchevent.LogTextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/holo_green_light"
+                android:text="View" />
+
+            <com.rent.mytestapplication.touchevent.LogTextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:onClick="toastMsg"
+                android:background="@android:color/holo_green_light"
+                android:text="Clickable View" />
+        </com.rent.mytestapplication.touchevent.LogLinearLayout>
+    </com.rent.mytestapplication.touchevent.LogScrollView>
+
+    <com.rent.mytestapplication.touchevent.LogLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:clickable="true"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clickable ViewGroup" />
+
+        <com.rent.mytestapplication.touchevent.LogTextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_green_light"
+            android:text="View" />
+
+        <com.rent.mytestapplication.touchevent.LogTextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:background="@android:color/holo_green_light"
+            android:text="Clickable View" />
+    </com.rent.mytestapplication.touchevent.LogLinearLayout>
+
+</LinearLayout>

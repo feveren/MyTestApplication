@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="label" format="string|reference" />
+
+    <declare-styleable name="LinearDividerLayout">
+        <attr name="android:dividerHeight" />
+        <attr name="android:divider" />
+        <attr name="android:headerDividersEnabled" />
+        <attr name="android:footerDividersEnabled" />
+        <attr name="dividerMarginLeft" format="dimension|reference" />
+        <attr name="dividerMarginRight" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CommonLinearItem">
+        <attr name="icon" format="reference" />
+        <attr name="label" />
+        <attr name="desc" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawableTextView">
+        <attr name="drawableHeight" format="dimension|reference" />
+        <attr name="drawableWidth" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CheckableItem">
+        <attr name="android:text" />
+        <attr name="checked" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PlaneTextItem">
+        <attr name="label" />
+        <attr name="android:text" />
+        <attr name="borderEnabled" format="boolean" />
+    </declare-styleable>
+
+    <attr name="CommonTabLayout" format="reference" />
+
+    <declare-styleable name="CommonTabLayout">
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="textSelectedSize" format="dimension|reference" />
+        <attr name="textSelectedColor" format="color|reference" />
+        <attr name="indicatorColor" format="color|reference" />
+        <attr name="indicatorSelectedColor" format="color|reference" />
+    </declare-styleable>
+</resources>

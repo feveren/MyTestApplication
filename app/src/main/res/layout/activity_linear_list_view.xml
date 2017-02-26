@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rent.mytestapplication.LinearListViewActivity">
+
+    <com.rent.mytestapplication.widget.linearlist.LinearDividerLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/colorPrimaryDark">
+
+        <com.rent.mytestapplication.widget.item.CommonLinearItem
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:desc="descdesc"
+            app:icon="@mipmap/ic_launcher"
+            app:label="labellable" />
+
+        <com.rent.mytestapplication.widget.item.CommonLinearItem
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:desc="desc2"
+            app:label="label2" />
+
+        <com.rent.mytestapplication.widget.item.CommonLinearItem
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:label="label2" />
+    </com.rent.mytestapplication.widget.linearlist.LinearDividerLayout>
+
+    <com.rent.mytestapplication.widget.linearlist.LinearDividerLayout
+        android:id="@+id/layout_linear_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.rent.mytestapplication.widget.linearlist.LinearDividerLayout
+        android:id="@+id/layout_linear_list2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
+    <com.rent.mytestapplication.widget.linearlist.LinearDividerLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:dividerMarginLeft="15dp">
+
+        <com.rent.mytestapplication.widget.item.PlaneTextItem
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="in divider"
+            app:label="PlaneTextItem1" />
+
+        <com.rent.mytestapplication.widget.item.PlaneTextItem
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="in divider"
+            app:label="PlaneTextItem2" />
+
+    </com.rent.mytestapplication.widget.linearlist.LinearDividerLayout>
+
+    <com.rent.mytestapplication.widget.item.PlaneTextItem
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="已选择"
+        app:borderEnabled="true"
+        app:label="请选择PlaneText" />
+
+</LinearLayout>
