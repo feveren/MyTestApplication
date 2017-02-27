@@ -34,23 +34,23 @@ public class Daily {
     @Test
     public void testQuickSort() {
         int[] arr = randomArray(10);
-        int keyIndex = 0;
-        int start = 0, end = arr.length - 1, key = arr[keyIndex];
         System.out.println("origin: " + Arrays.toString(arr));
-        quickSort(arr, keyIndex, start, end, key);
+        int start = 0, end = arr.length - 1;
+        quickSort(arr, start, end);
     }
 
-    private void quickSort(int[] arr, int keyIndex, int start, int end, int key) {
-        keyIndex = splitArray(arr, keyIndex, start, end, key);
+    private void quickSort(int[] arr, int start, int end) {
+        int keyIndex = splitArray(arr, start, end);
         if (keyIndex - start > 1) {
-            quickSort(arr, start, start, keyIndex - 1, arr[start]);
+            quickSort(arr, start, keyIndex - 1);
         }
         if (end - keyIndex > 1) {
-            quickSort(arr, keyIndex + 1, keyIndex + 1, end, arr[keyIndex + 1]);
+            quickSort(arr, keyIndex + 1, end);
         }
     }
 
-    private int splitArray(int[] arr, int keyIndex, int start, int end, int key) {
+    private int splitArray(int[] arr, int start, int end) {
+        int keyIndex = start, key = arr[keyIndex];
         while (start != end) {
             while (end > start) {
                 if (key > arr[end]) {
