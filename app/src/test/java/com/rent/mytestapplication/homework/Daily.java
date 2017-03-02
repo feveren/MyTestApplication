@@ -44,13 +44,13 @@ public class Daily {
      * 冒泡排序
      */
     @Test
-    public void testBubbling() {
+    public void testBubbleSort() {
         int[] arr = randomArray(10);
-        bubbling(arr, true);
-        bubbling(arr, false);
+        bubbleSort(arr, true);
+        bubbleSort(arr, false);
     }
 
-    private void bubbling(int[] arr, boolean asc) {
+    private void bubbleSort(int[] arr, boolean asc) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
                 if ((asc && arr[j] > arr[j + 1]) // 升序
@@ -166,7 +166,35 @@ public class Daily {
      * 2-10 为数字本身,A 为 1,J 为 11,Q 为 12,K 为 13,而大小王可以看成任意的数字。
      */
     @Test
-    public void random5() {
+    public void fivePokers() {
+        isStraight(new int[] { 6, 7, 8, 10, 13 });
+        isStraight(new int[] { 9, 11, 8, 10, 12 });
 
+        isStraight(new int[] { 6, 7, 3, 0, 5 });
+        isStraight(new int[] { 6, 7, 8, 0, 5 });
+        isStraight(new int[] { 6, 7, 8, 0, 13 });
+    }
+
+    private void isStraight(int[] picked) {
+        System.out.println("picked: " + Arrays.toString(picked));
+        bubbleSort(picked, true);
+        // 是否有王牌
+        boolean ghost = false;
+        // 是否是顺子
+        boolean straight = true;
+        int length = picked.length - 1;
+        for (int i = 0; i < length; i++) {
+            if (i == 0 && picked[i] == 0) {
+                ghost = true;
+            } else if (picked[i] + 1 == picked[i + 1]) {
+
+            } else if (ghost && i < length - 1) {
+                ghost = false;
+            } else {
+                straight = false;
+                break;
+            }
+        }
+        System.out.println("picked is" + (straight ? "" : " not") + " straight");
     }
 }
