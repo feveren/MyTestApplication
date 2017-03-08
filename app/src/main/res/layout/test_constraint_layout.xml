@@ -54,10 +54,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:text="Day11 Homework"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/group_name"
         app:layout_constraintLeft_toRightOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/bg" />
 
@@ -66,10 +66,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
         android:text="rent_test"
         android:textColor="#444444"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bg"
         app:layout_constraintLeft_toRightOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -81,6 +81,6 @@
         android:text="2017年3月7日23:45:32"
         android:textColor="#444444"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/group_name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/group_name"
         app:layout_constraintLeft_toRightOf="@+id/group_name" />
 </android.support.constraint.ConstraintLayout>
