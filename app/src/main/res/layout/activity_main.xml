@@ -114,6 +114,18 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="testService"
+            android:text="testService" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="ballFalling"
+            android:text="ballFalling" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="showBottomSheet"
             android:text="showBottomSheet" />
 

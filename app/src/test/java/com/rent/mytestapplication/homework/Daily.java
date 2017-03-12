@@ -205,6 +205,7 @@ public class Daily {
     @Test
     public void day12() {
 //        int[] arr = { 6, 7, 9, 8, 5, 9, 2, 8, 6 };
+//        int[] arr = { 6, 7, 9, 8, 5, 9, 2, 1, 6 };
         int[] arr = randomArray(8);
         System.out.println(Arrays.toString(arr));
         int low = -1, high = -1, tempLow = -1, tempHigh = -1;

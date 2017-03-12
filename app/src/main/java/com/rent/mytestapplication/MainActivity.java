@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rent.mytestapplication.aidl.AidlActivity;
+import com.rent.mytestapplication.anim.BallFallingActivity;
 import com.rent.mytestapplication.mvp.MVPActivity;
 import com.rent.mytestapplication.retrofit.RetrofitActivity;
 import com.rent.mytestapplication.touchevent.NestedScrollActivity;
@@ -87,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void rxLifecycle(View v) {
         startActivity(new Intent(this, RxLifecycleActivity.class));
+    }
+
+    public void ballFalling(View v) {
+        startActivity(new Intent(this, BallFallingActivity.class));
     }
 
     long[] mClicks = new long[5];

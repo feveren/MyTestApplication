@@ -20,7 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".NestedScrollViewActivity" />
-        <activity android:name=".CustomBehaviorActivity" />
+        <activity
+            android:name=".CustomBehaviorActivity"
+            android:taskAffinity=".bbbb" />
         <activity android:name=".ViewPagerActivity" />
         <activity android:name=".AnimActivity" />
         <activity android:name=".ButterKnifeActivity" />
@@ -39,8 +41,13 @@
         <activity
             android:name=".aidl.ProcessActivity"
             android:process=":test" />
-        <activity android:name=".retrofit.RetrofitActivity"/>
-        <activity android:name=".RxLifecycleActivity"/>
+        <activity android:name=".retrofit.RetrofitActivity" />
+        <activity android:name=".RxLifecycleActivity" />
+        <activity android:name=".service.TestServiceActivity" />
+
+        <service android:name=".service.TestService" />
+
+        <activity android:name=".anim.BallFallingActivity"></activity>
     </application>
 
 </manifest>
