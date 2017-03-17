@@ -30,17 +30,14 @@ public class App extends Application {
 
                     @Override
                     public void build(String method, Map<String, String> params, Map<String, String> body) {
-                        String token = "cdebf6d4265d8fc2367dc20e52c41ef0";
-
+                        // 请求后面都需要拼上着四个参数
                         params.put("userId", "46f1c9142d255075c-220e");
-                        if ("GET".equals(method)) {
-                            params.put("appVersion", "5.9.12");
-                            params.put("appOs", "android");
-                            params.put("token", token);
-                        } else {
-                            body.put("appVersion", "5.9.12");
-                            body.put("appOs", "android");
-                            body.put("token", token);
+                        params.put("appVersion", "5.9.12");
+                        params.put("appOs", "android");
+                        params.put("token", "cdebf6d4265d8fc2367dc20e52c41ef0");
+                        // post和put方法需要在body中放userId
+                        if ("POST".equals(method) || "PUT".equals(method)) {
+                            body.put("userId", "46f1c9142d255075c-220e");
                         }
                     }
                 }));

@@ -10,7 +10,7 @@ import io.reactivex.functions.Function;
  *
  * Created by RenTao on 17/1/24.
  */
-public abstract class Json2ResultFunciton<T> implements Function<JsonResult, Result<T>> {
+public abstract class BaseConverterFunction<T> implements Function<JsonResult, Result<T>> {
 
     @Override
     public Result<T> apply(JsonResult jsonResult) throws Exception {

@@ -4,16 +4,23 @@ import com.rent.mytestapplication.retrofit.bean.JsonResult;
 import com.rent.mytestapplication.retrofit.bean.ListResult;
 import com.rent.mytestapplication.retrofit.bean.MapResult;
 import com.rent.mytestapplication.retrofit.bean.Result;
+import com.rent.mytestapplication.upload.bean.UploadBean;
 import com.rent.mytestapplication.retrofit.observable.CallObservable;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -62,4 +69,24 @@ public interface TestService {
 
     @GET("api/zm/card/detail")
     Observable<JsonResult> getRxCardDetailJson(@Query("targetUserId") String userId);
+
+    // success
+    @POST("https://gcs.zm518.cn/api/upload/image")
+    Call<ResponseBody> uploadFile(@Body RequestBody body);
+
+    // success
+    @Multipart
+    @POST("https://gcs.zm518.cn/api/upload/image")
+    Call<ResponseBody> uploadFile(
+            @Part("clientId") RequestBody clientId, @Part("domain") RequestBody domain,
+            @Part MultipartBody.Part part
+    );
+
+    // success
+    @Multipart
+    @POST("https://gcs.zm518.cn/api/upload/image")
+    CallObservable<JsonResult> uploadFile(
+            @Part("clientId") RequestBody clientId, @Part("domain") RequestBody domain,
+            @Part List<MultipartBody.Part> part
+    );
 }

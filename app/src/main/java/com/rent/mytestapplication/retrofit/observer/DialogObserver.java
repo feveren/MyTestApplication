@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
  *
  * Created by RenTao on 17/1/13.
  */
-public class DialogObserver<T extends Result> extends ResponseObserver<T> {
+public class DialogObserver<T> extends ResponseObserver<T> {
     private WeakReference<Activity> mContext;
     private String mLoadingMessage;
     private ProgressDialog mLoadingDialog;

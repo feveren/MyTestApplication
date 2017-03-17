@@ -8,6 +8,7 @@ import java.util.Map;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -56,9 +57,18 @@ public class CommonParamsInterceptor implements Interceptor {
      * 重新构建RequestBody，添加通用的参数
      */
     private RequestBody buildRequestBody(Request request, Map<String, String> params) {
-        if (request.body() == null || !(request.body() instanceof FormBody)) {
+        if (request.body() == null) {
             return request.body();
         }
+        if (request.body() instanceof FormBody) {
+            return buildFormBody(request, params);
+        } else if (request.body() instanceof MultipartBody) {
+            return buildMultipartBody(request, params);
+        }
+        return request.body();
+    }
+
+    private RequestBody buildFormBody(Request request, Map<String, String> params) {
         FormBody.Builder builder = new FormBody.Builder();
         // 通用的Params
         if (params != null && !params.isEmpty()) {
@@ -76,6 +86,23 @@ public class CommonParamsInterceptor implements Interceptor {
         return builder.build();
     }
 
+    private RequestBody buildMultipartBody(Request request, Map<String, String> params) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        // 通用的Params
+        if (params != null && !params.isEmpty()) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                // add方法会对参数进行编码
+                builder.addFormDataPart(entry.getKey(), entry.getValue());
+            }
+        }
+        // 客户端传的Params
+        MultipartBody body = (MultipartBody) request.body();
+        for (int i = 0; i < body.parts().size(); i++) {
+            builder.addPart(body.parts().get(i));
+        }
+        return builder.build();
+    }
+
     private void clear() {
         mParams.clear();
         mBody.clear();
@@ -84,6 +111,11 @@ public class CommonParamsInterceptor implements Interceptor {
     private ParamsBuilder mParamsBuilder;
 
     public interface ParamsBuilder {
+        /**
+         * @param method "GET"、"DELETE"、"PUT"、"POST"
+         * @param params url后拼的参数
+         * @param body   body中放的参数
+         */
         void build(String method, Map<String, String> params, Map<String, String> body);
     }
 

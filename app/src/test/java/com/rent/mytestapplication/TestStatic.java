@@ -19,8 +19,9 @@ public class TestStatic {
 
 class SingleTon {
     public static SingleTon singleTon = new SingleTon();
-    public static int count1;
+    public static int count1 = getCount1();
     public static int count2 = getCount2();
+    public int var = getVar();
 
     static {
         System.out.println("static");
@@ -34,9 +35,19 @@ class SingleTon {
         System.out.println("Constructor count2: " + count2);
     }
 
+    private static int getCount1() {
+        System.out.println("getCount1");
+        return 0;
+    }
+
     private static int getCount2() {
         System.out.println("getCount2");
         return 0;
+    }
+
+    public int getVar() {
+        System.out.println("getVar");
+        return var;
     }
 
     public static SingleTon getInstance() {

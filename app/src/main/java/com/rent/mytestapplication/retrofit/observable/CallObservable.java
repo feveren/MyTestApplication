@@ -1,6 +1,6 @@
 package com.rent.mytestapplication.retrofit.observable;
 
-import com.rent.mytestapplication.common.view.BaseView;
+import com.rent.mytestapplication.retrofit.transformer.ThreadTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxDialogFragment;
@@ -10,9 +10,6 @@ import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  *
@@ -20,102 +17,49 @@ import io.reactivex.schedulers.Schedulers;
  */
 public abstract class CallObservable<T> extends Observable<T> {
 
-    // RxFragmentActivity ===========================
-
-    public void subscribe(RxFragmentActivity activity, Observer<T> observer) {
-        subscribe(activity, AndroidSchedulers.mainThread(), observer);
+    public void subscribe(Object component, Observer<T> observer) {
+        composeCommon(component).subscribe(observer);
     }
 
-    public void subscribe(RxFragmentActivity activity, Scheduler scheduler, Observer<T> observer) {
-        subscribe(activity, ActivityEvent.DESTROY, scheduler, observer);
+    public Observable<T> composeCommon(Object component) {
+        return composeBind(component).compose(new ThreadTransformer<T>());
     }
 
-    public void subscribe(RxFragmentActivity activity, ActivityEvent bindUntil, Observer<T> observer) {
-        subscribe(activity, bindUntil, AndroidSchedulers.mainThread(), observer);
+    public Observable<T> composeThread() {
+        return compose(new ThreadTransformer<T>());
     }
 
-    public void subscribe(RxFragmentActivity activity, ActivityEvent bindUntil, Scheduler scheduler, Observer<T> observer) {
-        Observable<T> obz = composeThread(scheduler);
-        if (activity != null && bindUntil != null) {
-            obz.compose(activity.<T>bindUntilEvent(bindUntil));
-        }
-        obz.subscribe(observer);
-    }
-
-    // RxFragment ===========================
-
-    public void subscribe(RxFragment fragment, Observer<T> observer) {
-        subscribe(fragment, AndroidSchedulers.mainThread(), observer);
-    }
-
-    public void subscribe(RxFragment fragment, Scheduler scheduler, Observer<T> observer) {
-        subscribe(fragment, FragmentEvent.DESTROY, scheduler, observer);
-    }
-
-    public void subscribe(RxFragment fragment, FragmentEvent bindUntil, Observer<T> observer) {
-        subscribe(fragment, bindUntil, AndroidSchedulers.mainThread(), observer);
-    }
-
-    public void subscribe(RxFragment fragment, FragmentEvent bindUntil, Scheduler scheduler, Observer<T> observer) {
-        Observable<T> obz = composeThread(scheduler);
-        if (fragment != null && bindUntil != null) {
-            obz.compose(fragment.<T>bindUntilEvent(bindUntil));
-        }
-        obz.subscribe(observer);
-    }
-
-    // RxDialogFragment ===========================
-
-    public void subscribe(RxDialogFragment fragment, Observer<T> observer) {
-        subscribe(fragment, AndroidSchedulers.mainThread(), observer);
-    }
-
-    public void subscribe(RxDialogFragment fragment, Scheduler scheduler, Observer<T> observer) {
-        subscribe(fragment, FragmentEvent.DESTROY, scheduler, observer);
-    }
-
-    public void subscribe(RxDialogFragment fragment, FragmentEvent bindUntil, Observer<T> observer) {
-        subscribe(fragment, bindUntil, AndroidSchedulers.mainThread(), observer);
-    }
-
-    public void subscribe(RxDialogFragment fragment, FragmentEvent bindUntil, Scheduler scheduler, Observer<T> observer) {
-        Observable<T> obz = composeThread(scheduler);
-        if (fragment != null && bindUntil != null) {
-            obz.compose(fragment.<T>bindUntilEvent(bindUntil));
-        }
-        obz.subscribe(observer);
-    }
-
-    // MVP ===========================
-
-    public void subscribe(BaseView view, Observer<T> observer) {
-        subscribe(view, AndroidSchedulers.mainThread(), observer);
-    }
-
-    public void subscribe(BaseView view, Scheduler scheduler, Observer<T> observer) {
-        Observable<T> obz = composeThread(scheduler);
-        if (view != null) {
-            ObservableTransformer transformer = view.bindUntilEvent(ActivityEvent.DESTROY);
-            if (transformer == null) {
-                transformer = view.bindUntilEvent(FragmentEvent.DESTROY);
-            }
-            if (transformer != null) {
-                obz.compose(transformer);
-            }
-        }
-        obz.subscribe(observer);
-    }
-
-    /**
-     * 1.subscribeOn io<br/>
-     * 2.unsubscribeOn io<br/>
-     * 3.observeOn scheduler
-     */
-    public Observable<T> composeThread(Scheduler scheduler) {
-        Observable<T> obz = subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
-        if (scheduler != null) {
-            obz.observeOn(scheduler);
-        }
+    @SuppressWarnings("UnusedAssignment")
+    public Observable<T> composeBind(Object component) {
+        // 方法内部会判断component是不是RxFragmentActivity，如果是则进行绑定，否则返回this
+        Observable<T> obz = composeBind(component, ActivityEvent.DESTROY);
+        // 再判断component是不是RxFragment或RxDialogFragment，如果是则进行绑定，否则返回this
+        obz = composeBind(component, FragmentEvent.DESTROY);
         return obz;
+    }
+
+    public Observable<T> composeBind(Object component, ActivityEvent event) {
+        ObservableTransformer<T, T> transformer = null;
+        if (component instanceof RxFragmentActivity) {
+            transformer = ((RxFragmentActivity) component).bindUntilEvent(event);
+        }
+        if (transformer != null) {
+            return compose(transformer);
+        }
+        return this;
+    }
+
+    public Observable<T> composeBind(Object component, FragmentEvent event) {
+        ObservableTransformer<T, T> transformer = null;
+        if (component instanceof RxFragment) {
+            transformer = ((RxFragment) component).bindUntilEvent(event);
+        }
+        if (component instanceof RxDialogFragment) {
+            transformer = ((RxDialogFragment) component).bindUntilEvent(event);
+        }
+        if (transformer != null) {
+            return compose(transformer);
+        }
+        return this;
     }
 }

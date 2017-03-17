@@ -1,6 +1,7 @@
 package com.rent.mytestapplication.retrofit;
 
 import com.rent.mytestapplication.retrofit.interceptor.CommonParamsInterceptor;
+import com.rent.mytestapplication.retrofit.interceptor.LoggingInterceptor;
 import com.rent.mytestapplication.retrofit.interceptor.NetworkInfoInterceptor;
 
 import java.util.Map;
@@ -25,12 +26,18 @@ public class HttpClient {
         if (HTTP_CLIENT != null) {
             throw new IllegalStateException("HttpClient has been initialized");
         }
+
+        LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+        loggingInterceptor.setLevel(LoggingInterceptor.Level.BASIC);
+
         OkHttpClient.Builder clientBuilder =  new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(new CommonParamsInterceptor().setParamsBuilder(config.paramsBuilder))
-                .addInterceptor(new NetworkInfoInterceptor());
+                .addInterceptor(new NetworkInfoInterceptor())
+//                .addInterceptor(loggingInterceptor)
+                ;
         HTTP_CLIENT = clientBuilder.build();
     }
 

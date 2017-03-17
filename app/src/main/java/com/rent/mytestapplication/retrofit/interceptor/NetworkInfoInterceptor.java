@@ -74,7 +74,7 @@ public class NetworkInfoInterceptor implements Interceptor {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "";
+        return str;
     }
 
     private void printBody(final Request request, StringBuilder builder) {

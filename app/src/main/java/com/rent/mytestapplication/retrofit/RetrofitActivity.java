@@ -1,21 +1,30 @@
 package com.rent.mytestapplication.retrofit;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 
 import com.rent.mytestapplication.R;
+import com.rent.mytestapplication.common.view.BaseView;
+import com.rent.mytestapplication.mvp.BaseActivity;
 import com.rent.mytestapplication.retrofit.adapter.RxJava2CallAdapterFactory;
 import com.rent.mytestapplication.retrofit.bean.JsonResult;
 import com.rent.mytestapplication.retrofit.bean.ListResult;
 import com.rent.mytestapplication.retrofit.bean.MapResult;
 import com.rent.mytestapplication.retrofit.bean.Result;
+import com.rent.mytestapplication.upload.bean.UploadBean;
 import com.rent.mytestapplication.retrofit.converter.JsonConverterFactory;
+import com.rent.mytestapplication.upload.functions.FileConverterFunction;
 import com.rent.mytestapplication.retrofit.observable.CallObservable;
 import com.rent.mytestapplication.retrofit.observer.DialogObserver;
+import com.rent.mytestapplication.retrofit.observer.ResponseObserver;
+import com.rent.mytestapplication.upload.provider.ImageUploadProvider;
+import com.rent.mytestapplication.upload.provider.impl.ImageUploadProviderImpl;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +32,18 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitActivity extends RxFragmentActivity {
+public class RetrofitActivity extends BaseActivity implements BaseView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,21 +228,20 @@ public class RetrofitActivity extends RxFragmentActivity {
         TestService service = Requester.get().create(TestService.class);
         CallObservable<ListResult<Ad>> obz = service.getRxADList(1483939981359L);
         obz.compose(this.<ListResult<Ad>>bindUntilEvent(ActivityEvent.DESTROY));
-        obz.subscribe(this, new DialogObserver<ListResult<Ad>>(this, "加载中") {
-
-            @Override
-            protected void onSuccess(ListResult<Ad> result) {
-                System.out.println("code = " + result.code);
-                System.out.println("message = " + result.message);
-                List<RetrofitActivity.Ad> data = result.data;
-                System.out.println("data = " + data);
-                if (data != null) {
-                    for (RetrofitActivity.Ad ad : data) {
-                        System.out.println(ad);
-                    }
-                }
-            }
-        });
+        // TODO
+//        obz.subscribe(this, new DialogObserver<List<Ad>>(this, "加载中") {
+//
+//            @Override
+//            protected void onSuccess(List<Ad> result) {
+//                List<RetrofitActivity.Ad> data = result;
+//                System.out.println("data = " + data);
+//                if (data != null) {
+//                    for (RetrofitActivity.Ad ad : data) {
+//                        System.out.println(ad);
+//                    }
+//                }
+//            }
+//        });
     }
 
     public void getRxBean(View v) {
@@ -349,6 +361,51 @@ public class RetrofitActivity extends RxFragmentActivity {
                 System.out.println(response.body().string());
             }
         });
+    }
+
+    private MultipartBody.Part addPart(String upload) {
+        File file = new File(upload);
+        return MultipartBody.Part.createFormData("FILE", file.getName(), RequestBody.create(null, file));
+    }
+
+    public void uploadFile(View v) {
+//        String clientId = "ae32c42e64434648af5cccb25ee1e906";
+//        String domain = "t.zm.gaiay.cn";
+//
+//        List<MultipartBody.Part> list = new ArrayList<>();
+//        list.add(addPart(Environment.getExternalStorageDirectory() + "/upload1.jpg"));
+////        list.add(addPart(Environment.getExternalStorageDirectory() + "/upload2.jpg"));
+//
+//        Requester.get().create(TestService.class)
+//                .uploadFile(RequestBody.create(null, clientId), RequestBody.create(null, domain), list)
+//                .setConverter(new FileConverterFunction())
+//                .subscribe(this, new ResponseObserver<Result<List<UploadBean>>>() {
+//
+//                    @Override
+//                    protected void onSuccess(Result<List<UploadBean>> result) {
+//                        System.out.println("Thread name: " + Thread.currentThread());
+//                        System.out.println(result.code);
+//                        System.out.println(result.message);
+//                        for (UploadBean upload : result.data) {
+//                            System.out.println(upload.fileName + " " + upload.url);
+//                        }
+//                    }
+//                });
+
+        ImageUploadProvider provider = new ImageUploadProviderImpl();
+        provider.upload(new UploadBean(Environment.getExternalStorageDirectory() + "/upload1.png"))
+                .composeCommon(this)
+                .map(new FileConverterFunction())
+                .subscribe(new ResponseObserver<List<UploadBean>>() {
+
+                    @Override
+                    protected void onSuccess(List<UploadBean> result) {
+                        System.out.println("Thread name: " + Thread.currentThread());
+                        for (UploadBean upload : result) {
+                            System.out.println(upload.fileName + " " + upload.url);
+                        }
+                    }
+                });
     }
 
     public static class Repo {

@@ -15,7 +15,7 @@ public class Requester {
 
     private Requester() {
         mRetrofit = new Retrofit.Builder()
-                // 假如@GET、@POST等标签设置了url，并包含host，会baseUrl将不起作用
+                // 假如@GET、@POST等标签设置了url，并包含host，baseUrl将不起作用
                 // 如果没有设置host，则url为baseUrl + 设置的url
                 .baseUrl("https://t.zm.gaiay.cn/")
                 .addConverterFactory(new JsonConverterFactory())
