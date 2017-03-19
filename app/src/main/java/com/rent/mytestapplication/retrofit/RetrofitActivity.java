@@ -12,19 +12,17 @@ import com.rent.mytestapplication.retrofit.bean.JsonResult;
 import com.rent.mytestapplication.retrofit.bean.ListResult;
 import com.rent.mytestapplication.retrofit.bean.MapResult;
 import com.rent.mytestapplication.retrofit.bean.Result;
-import com.rent.mytestapplication.upload.bean.UploadBean;
 import com.rent.mytestapplication.retrofit.converter.JsonConverterFactory;
-import com.rent.mytestapplication.upload.functions.FileConverterFunction;
 import com.rent.mytestapplication.retrofit.observable.CallObservable;
 import com.rent.mytestapplication.retrofit.observer.DialogObserver;
-import com.rent.mytestapplication.retrofit.observer.ResponseObserver;
+import com.rent.mytestapplication.upload.bean.UploadBean;
+import com.rent.mytestapplication.upload.functions.FileConverterFunction;
 import com.rent.mytestapplication.upload.provider.ImageUploadProvider;
 import com.rent.mytestapplication.upload.provider.impl.ImageUploadProviderImpl;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +30,6 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -396,7 +392,7 @@ public class RetrofitActivity extends BaseActivity implements BaseView {
         provider.upload(new UploadBean(Environment.getExternalStorageDirectory() + "/upload1.png"))
                 .composeCommon(this)
                 .map(new FileConverterFunction())
-                .subscribe(new ResponseObserver<List<UploadBean>>() {
+                .subscribe(new DialogObserver<List<UploadBean>>(this, "上传中") {
 
                     @Override
                     protected void onSuccess(List<UploadBean> result) {

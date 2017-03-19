@@ -4,9 +4,9 @@ package com.rent.mytestapplication.retrofit.observer.event;
  * <p> 执行顺序
  * <p> 1. {@link #onPreRequest()}
  * <p> 2. {@link #onPostRequest()}
- * <p> 3. {@link #onSuccess(T)} / {@link #onError(int, String)}
- * <p> 4. {@link #onComplete()}
- * <p> Created by RenTao on 2017/3/17.
+ * <p> 3. {@link #onSuccess(T)} / {@link #onFailure(int, String)}
+ * <p> 4. {@link #onFinish()}
+ * <p> Created by RenTao on 2017/3/19.
  */
 public abstract class RequestEvent<T> {
     public void onPreRequest() {}
@@ -28,11 +28,11 @@ public abstract class RequestEvent<T> {
      * 2.请求服务器成功，但解析出现异常
      * 3.请求解析都成功，但code！=0时
      */
-    public void onError(int code, String message) {}
+    public void onFailure(int code, String message) {}
 
     /**
      * 当请求完成时（不管成功还是失败），都会回调该接口。
      * 会在onSuccess和onError之后
      */
-    public void onComplete() {}
+    public void onFinish() {}
 }
