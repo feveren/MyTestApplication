@@ -25,6 +25,8 @@ public class ExampleUnitTest {
         System.out.println(checkTargetExisted("20->50|70", "20|80"));
         System.out.println(checkTargetExisted("20->50|70", "10->30|80"));
         System.out.println(checkTargetExisted("20->50|70", "60->80|90"));
+
+        new Child<>();
     }
 
     private boolean checkTargetExisted(String str1, String str2) {
@@ -70,6 +72,10 @@ public class ExampleUnitTest {
     }
 
     class Child<T> extends Parent<T> {
+        public Child() {
+            System.out.println("child");
+        }
+
         void printChild() {
             Type type = this.getClass().getGenericSuperclass();
             System.out.println(type);
@@ -86,6 +92,10 @@ public class ExampleUnitTest {
 
     class Parent<T> {
         T data;
+
+        public Parent() {
+            System.out.println("parent");
+        }
 
         void printParent() {
             Type type = this.getClass().getComponentType();

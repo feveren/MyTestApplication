@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rent.mytestapplication.anim.VectorActivity">
+
+    <ImageView
+        android:id="@+id/arrow_down1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/arrow_down"
+        android:onClick="arrowDown1"
+        />
+
+    <ImageView
+        android:id="@+id/animated_vector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/arrow_switch"
+        android:onClick="animatedVector"
+        />
+
+    <ImageView
+        android:id="@+id/animated_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/animated_checked"
+        android:onClick="animatedChecked"
+        />
+
+    <ImageView
+        android:id="@+id/menu_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/animated_menu"
+        android:onClick="menuSwitch"
+        />
+
+</LinearLayout>

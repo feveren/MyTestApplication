@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/checked">
+
+    <target
+        android:animation="@animator/path_to_end"
+        android:name="cycle"/>
+
+    <target
+        android:animation="@animator/path_to_end"
+        android:name="check"/>
+</animated-vector>

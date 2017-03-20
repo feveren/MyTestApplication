@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rent.mytestapplication.activityoptions.ActOptsActivity;
 import com.rent.mytestapplication.aidl.AidlActivity;
 import com.rent.mytestapplication.anim.BallFallingActivity;
+import com.rent.mytestapplication.anim.VectorActivity;
 import com.rent.mytestapplication.mvp.MVPActivity;
 import com.rent.mytestapplication.retrofit.RetrofitActivity;
 import com.rent.mytestapplication.touchevent.NestedScrollActivity;
@@ -92,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void ballFalling(View v) {
         startActivity(new Intent(this, BallFallingActivity.class));
+    }
+
+    public void vectorDrawable(View v) {
+        startActivity(new Intent(this, VectorActivity.class));
+    }
+
+    public void actOpts(View v) {
+        startActivity(new Intent(this, ActOptsActivity.class));
     }
 
     long[] mClicks = new long[5];
