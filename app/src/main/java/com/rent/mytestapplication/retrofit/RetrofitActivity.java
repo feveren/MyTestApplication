@@ -224,21 +224,21 @@ public class RetrofitActivity extends BaseActivity implements BaseView {
         TestService service = Requester.get().create(TestService.class);
         CallObservable<ListResult<Ad>> obz = service.getRxADList(1483939981359L);
         obz.compose(this.<ListResult<Ad>>bindUntilEvent(ActivityEvent.DESTROY));
-        // TODO
-//        obz.subscribe(this, new DialogObserver<List<Ad>>(this, "加载中") {
-//
-//            @Override
-//            protected void onSuccess(List<Ad> result) {
-//                List<RetrofitActivity.Ad> data = result;
-//                System.out.println("data = " + data);
-//                if (data != null) {
-//                    for (RetrofitActivity.Ad ad : data) {
-//                        System.out.println(ad);
-//                    }
-//                }
-//            }
-//        });
+        obz.subscribe(this, new DialogObserver<ListResult<Ad>>(this, "加载中") {
+
+            @Override
+            protected void onSuccess(ListResult<Ad> result) {
+                List<RetrofitActivity.Ad> data = result.data;
+                System.out.println("data = " + data);
+                if (data != null) {
+                    for (RetrofitActivity.Ad ad : data) {
+                        System.out.println(ad);
+                    }
+                }
+            }
+        });
     }
+
 
     public void getRxBean(View v) {
         TestService service = Requester.get().create(TestService.class);
@@ -392,15 +392,15 @@ public class RetrofitActivity extends BaseActivity implements BaseView {
         provider.upload(new UploadBean(Environment.getExternalStorageDirectory() + "/upload1.png"))
                 .composeCommon(this)
                 .map(new FileConverterFunction())
-                .subscribe(new DialogObserver<List<UploadBean>>(this, "上传中") {
+                .subscribe(new DialogObserver<Result<List<UploadBean>>>(this, "上传中") {
 
-                    @Override
-                    protected void onSuccess(List<UploadBean> result) {
-                        System.out.println("Thread name: " + Thread.currentThread());
-                        for (UploadBean upload : result) {
-                            System.out.println(upload.fileName + " " + upload.url);
+                        @Override
+                        protected void onSuccess(Result<List<UploadBean>> result) {
+                            System.out.println("Thread name: " + Thread.currentThread());
+                            for (UploadBean upload : result.data) {
+                                System.out.println(upload.fileName + " " + upload.url);
+                            }
                         }
-                    }
                 });
     }
 

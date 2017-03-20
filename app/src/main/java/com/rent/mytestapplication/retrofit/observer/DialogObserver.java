@@ -2,7 +2,10 @@ package com.rent.mytestapplication.retrofit.observer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.widget.Toast;
 
+import com.rent.mytestapplication.App;
+import com.rent.mytestapplication.retrofit.bean.Result;
 import com.rent.mytestapplication.retrofit.observer.event.RequestEvent;
 
 import java.lang.ref.WeakReference;
@@ -11,7 +14,7 @@ import java.lang.ref.WeakReference;
  *
  * Created by RenTao on 17/3/19.
  */
-public class DialogObserver<T> extends ResponseObserver<T> {
+public class DialogObserver<T extends Result> extends ResponseObserver<T> {
 
     public DialogObserver(Activity context, String msg) {
         addEvent(new Event<T>(context, msg));
@@ -30,6 +33,14 @@ public class DialogObserver<T> extends ResponseObserver<T> {
         @Override
         public void onPreRequest() {
             showDialog();
+        }
+
+        @Override
+        public void onFailure(int code, String message) {
+            if (message == null || message.trim().isEmpty()) {
+                message = "";
+            }
+            Toast.makeText(App.app, message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

@@ -4,7 +4,6 @@ import com.rent.mytestapplication.retrofit.bean.JsonResult;
 import com.rent.mytestapplication.retrofit.bean.ListResult;
 import com.rent.mytestapplication.retrofit.bean.MapResult;
 import com.rent.mytestapplication.retrofit.bean.Result;
-import com.rent.mytestapplication.upload.bean.UploadBean;
 import com.rent.mytestapplication.retrofit.observable.CallObservable;
 
 import java.util.List;
@@ -65,7 +64,7 @@ public interface TestService {
     CallObservable<Result<RetrofitActivity.Detail>> getRxCardDetail(@Query("targetUserId") String userId);
 
     @GET("https://t.zm.gaiay.cn/api/zm/card/detail")
-    Observable<MapResult> getRxCardDetailMap(@Query("targetUserId") String userId);
+    CallObservable<MapResult> getRxCardDetailMap(@Query("targetUserId") String userId);
 
     @GET("api/zm/card/detail")
     Observable<JsonResult> getRxCardDetailJson(@Query("targetUserId") String userId);

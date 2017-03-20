@@ -14,6 +14,7 @@ import java.util.Map;
  * Created by RenTao on 16/10/10.
  */
 public class App extends Application {
+    public static App app;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -25,6 +26,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        app = this;
+
         HttpClient.init(new HttpClient.Config()
                 .paramsBuilder(new CommonParamsInterceptor.ParamsBuilder() {
 
@@ -34,7 +37,7 @@ public class App extends Application {
                         params.put("userId", "46f1c9142d255075c-220e");
                         params.put("appVersion", "5.9.12");
                         params.put("appOs", "android");
-                        params.put("token", "cdebf6d4265d8fc2367dc20e52c41ef0");
+                        params.put("token", "8f319bade7229bf908cb5c50108bebc3");
                         // post和put方法需要在body中放userId
                         if ("POST".equals(method) || "PUT".equals(method)) {
                             body.put("userId", "46f1c9142d255075c-220e");

@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
  * <p> 3. {@link #onFinish()}
  * Created by RenTao on 17/3/19.
  */
-public class ResponseObserver<T> implements Observer<Result<T>> {
+public class ResponseObserver<T extends Result> implements Observer<T> {
     private Disposable mDisposable;
 
     public ResponseObserver() {
@@ -30,10 +30,10 @@ public class ResponseObserver<T> implements Observer<Result<T>> {
     }
 
     @Override
-    public void onNext(Result<T> result) {
+    public void onNext(T result) {
         onEventPostRequest();
         if (result.code == 0) {
-            onEventSuccess(result.data);
+            onEventSuccess(result);
         } else {
             onEventFailure(result.code, result.message);
         }
