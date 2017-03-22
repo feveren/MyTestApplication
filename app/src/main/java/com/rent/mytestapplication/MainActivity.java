@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(removePkgName(VectorActivity.class));
         list.add(removePkgName(ActOptsActivity.class));
         list.add(removePkgName(com.rent.mytestapplication.nestedscroll.NestedScrollActivity.class));
+        list.add(removePkgName(TextImageSpanActivity.class));
         list.add("method:testClick");
         list.add("method:showBottomSheet");
 

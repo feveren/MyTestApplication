@@ -53,7 +53,8 @@
         <activity android:name=".anim.VectorActivity" />
         <activity android:name=".activityoptions.ActOptsActivity" />
         <activity android:name=".activityoptions.ActOptsSecondActivity" />
-        <activity android:name=".nestedscroll.NestedScrollActivity"></activity>
+        <activity android:name=".nestedscroll.NestedScrollActivity" />
+        <activity android:name=".TextImageSpanActivity"></activity>
     </application>
 
 </manifest>
