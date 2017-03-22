@@ -1,7 +1,7 @@
 package com.rent.mytestapplication;
 
 import android.app.Activity;
-import android.widget.Button;
+import android.widget.ListView;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +19,8 @@ public class TestMainActivity {
     @Test
     public void testMain() {
         Activity activity = Robolectric.setupActivity(MainActivity.class);
-        Button button = (Button) activity.findViewById(R.id.button1);
-        System.out.println(button.getText());
+        ListView listView = (ListView) activity.findViewById(R.id.list_view);
+        System.out.println(listView.getId());
     }
 
 }

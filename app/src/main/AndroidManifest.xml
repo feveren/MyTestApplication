@@ -52,7 +52,8 @@
         <activity android:name=".anim.BallFallingActivity" />
         <activity android:name=".anim.VectorActivity" />
         <activity android:name=".activityoptions.ActOptsActivity" />
-        <activity android:name=".activityoptions.ActOptsSecondActivity"></activity>
+        <activity android:name=".activityoptions.ActOptsSecondActivity" />
+        <activity android:name=".nestedscroll.NestedScrollActivity"></activity>
     </application>
 
 </manifest>

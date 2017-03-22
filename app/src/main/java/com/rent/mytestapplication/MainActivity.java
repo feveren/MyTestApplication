@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,93 +23,72 @@ import com.rent.mytestapplication.retrofit.RetrofitActivity;
 import com.rent.mytestapplication.touchevent.NestedScrollActivity;
 import com.rent.mytestapplication.touchevent.TouchEventActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    public void nestedScrollView(View v) {
-        startActivity(new Intent(this, NestedScrollViewActivity.class));
-    }
+        final List<String> list = new ArrayList<>();
+        list.add(removePkgName(NestedScrollViewActivity.class));
+        list.add(removePkgName(CustomBehaviorActivity.class));
+        list.add(removePkgName(AnimActivity.class));
+        list.add(removePkgName(ButterKnifeActivity.class));
+        list.add(removePkgName(ViewPagerActivity.class));
+        list.add(removePkgName(StableIDsActivity.class));
+        list.add(removePkgName(LinearListViewActivity.class));
+        list.add(removePkgName(FragmentSwitcherActivity.class));
+        list.add(removePkgName(PagerFragmentActivity.class));
+        list.add(removePkgName(TabBarActivity.class));
+        list.add(removePkgName(MVPActivity.class));
+        list.add(removePkgName(TouchEventActivity.class));
+        list.add(removePkgName(NestedScrollActivity.class));
+        list.add(removePkgName(AidlActivity.class));
+        list.add(removePkgName(RetrofitActivity.class));
+        list.add(removePkgName(RxLifecycleActivity.class));
+        list.add(removePkgName(BallFallingActivity.class));
+        list.add(removePkgName(VectorActivity.class));
+        list.add(removePkgName(ActOptsActivity.class));
+        list.add(removePkgName(com.rent.mytestapplication.nestedscroll.NestedScrollActivity.class));
+        list.add("method:testClick");
+        list.add("method:showBottomSheet");
 
-    public void customBehavior(View v) {
-        startActivity(new Intent(this, CustomBehaviorActivity.class));
-    }
+        ListView listView = (ListView) this.findViewById(R.id.list_view);
+        listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-    public void anim(View v) {
-        startActivity(new Intent(this, AnimActivity.class));
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    String className = list.get(position);
+                    if (className.startsWith("method")) {
+                        MainActivity.this.getClass().getMethod(className.split(":")[1])
+                                .invoke(MainActivity.this);
+                    } else {
+                        startActivity(new Intent(MainActivity.this, Class.forName(addPkgName(className))));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
-
-    public void butterKnife(View v) {
-        startActivity(new Intent(this, ButterKnifeActivity.class));
+    
+    private String removePkgName(Class<?> clazz) {
+        return clazz.getName().replace(BuildConfig.APPLICATION_ID + ".", "");
     }
-
-    public void viewPagerActivity(View v) {
-        startActivity(new Intent(this, ViewPagerActivity.class));
-    }
-
-    public void stableIDsActivity(View v) {
-        startActivity(new Intent(this, StableIDsActivity.class));
-    }
-
-    public void linearListView(View v) {
-        startActivity(new Intent(this, LinearListViewActivity.class));
-    }
-
-    public void fragmentSwitcher(View v) {
-        startActivity(new Intent(this, FragmentSwitcherActivity.class));
-    }
-
-    public void pagerFragment(View v) {
-        startActivity(new Intent(this, PagerFragmentActivity.class));
-    }
-
-    public void tabBarActivity(View v) {
-        startActivity(new Intent(this, TabBarActivity.class));
-    }
-
-    public void testMVP(View v) {
-        startActivity(new Intent(this, MVPActivity.class));
-    }
-
-    public void touchEvent(View v) {
-        startActivity(new Intent(this, TouchEventActivity.class));
-    }
-
-    public void nestedScroll(View v) {
-        startActivity(new Intent(this, NestedScrollActivity.class));
-    }
-
-    public void aidl(View v) {
-        startActivity(new Intent(this, AidlActivity.class));
-    }
-
-    public void retrofit(View v) {
-        startActivity(new Intent(this, RetrofitActivity.class));
-    }
-
-    public void rxLifecycle(View v) {
-        startActivity(new Intent(this, RxLifecycleActivity.class));
-    }
-
-    public void ballFalling(View v) {
-        startActivity(new Intent(this, BallFallingActivity.class));
-    }
-
-    public void vectorDrawable(View v) {
-        startActivity(new Intent(this, VectorActivity.class));
-    }
-
-    public void actOpts(View v) {
-        startActivity(new Intent(this, ActOptsActivity.class));
+    
+    private String addPkgName(String className) {
+        return BuildConfig.APPLICATION_ID + "." + className;
     }
 
     long[] mClicks = new long[5];
 
-    public void testClick(View v) {
+    public void testClick() {
         for (int i = 0; i < mClicks.length; i++) {
             System.out.print(mClicks[i] + " ");
         }
@@ -119,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showBottomSheet(View v) {
+    public void showBottomSheet() {
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         TextView textView = new TextView(this);
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300));
