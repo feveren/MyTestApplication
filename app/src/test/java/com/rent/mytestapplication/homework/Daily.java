@@ -289,39 +289,38 @@ public class Daily {
         step3.put((int) 'i', 9);
         step3.put((int) 'n', 9);
 
-        output = "nine";
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> count = new HashMap<>();
         for (char c : output.toCharArray()) {
-            Integer num = map.get((int) c);
+            Integer num = count.get((int) c);
             if (num == null) {
                 num = 0;
             }
             num++;
-            map.put((int) c, num);
-            System.out.println((char) c + ": " + num);
+            count.put((int) c, num);
         }
-        System.out.println("parse");
         String result = "";
-        result += parse(map, step1, numbers);
-        result += parse(map, step2, numbers);
-        result += parse(map, step3, numbers);
-        System.out.println(result);
+        result += parse(count, step1, numbers);
+        result += parse(count, step2, numbers);
+        result += parse(count, step3, numbers);
+        System.out.println("number is " + result);
     }
-
 
     private String parse(Map<Integer, Integer> count, Map<Integer, Integer> step, String[] numbers) {
         String result = "";
-        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
-            System.out.println((char) entry.getKey().intValue() + ": " + entry.getValue());
-            Integer num = step.get(entry.getKey());
-            if (num == null || num == 0) {
-                continue;
+        for (Map.Entry<Integer, Integer> excludeEntry : step.entrySet()) {
+            // 查看字符串中是否包含指定(step.getKey())的字符
+            Integer size = count.get(excludeEntry.getKey());
+            while (size != null && size > 0) {
+                // 存在的话，取出该数字对应的英文字母（numbers[excludeEntry.getValue()]）
+                // 遍历每个字母，并从去除count中对应的字母，每次去除一个
+                for (char c : numbers[excludeEntry.getValue()].toCharArray()) {
+                    int remain = count.get((int) c) - 1;
+                    count.put((int) c, remain);
+                }
+                result += excludeEntry.getValue();
+
+                size = count.get(excludeEntry.getKey());
             }
-            for (char c : numbers[num].toCharArray()) {
-                int remain = count.get((int) c) - entry.getValue();
-                count.put((int) c, remain);
-            }
-            result += num;
         }
         return result;
     }
