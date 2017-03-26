@@ -54,7 +54,8 @@
         <activity android:name=".activityoptions.ActOptsActivity" />
         <activity android:name=".activityoptions.ActOptsSecondActivity" />
         <activity android:name=".nestedscroll.NestedScrollActivity" />
-        <activity android:name=".TextImageSpanActivity"></activity>
+        <activity android:name=".TextImageSpanActivity" />
+        <activity android:name=".anim.ReboundActivity"></activity>
     </application>
 
 </manifest>

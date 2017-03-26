@@ -20,6 +20,7 @@ public class CustomBehaviorActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_MOVE:
                         int y = (int) event.getRawY() - v.getMeasuredHeight() / 2;
                         v.layout(v.getLeft(), y, v.getRight(), y + v.getMeasuredHeight());
+                        System.out.println("y: " + y + ", getMeasuredHeight: " + v.getMeasuredHeight());
                         break;
                 }
                 return true;
