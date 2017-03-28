@@ -324,4 +324,29 @@ public class Daily {
         }
         return result;
     }
+
+    /**
+     * 给你一个整数sum，从N个有序元素的数组中寻找元素a,b，使得a+b的结果最接近sum，最快的平均时间复杂度是多少？ 并给出你的算法。
+     */
+    @Test
+    public void sum() {
+        int[] arr = randomArray(10);
+        bubbleSort(arr, true);
+        System.out.println("random arr: " + Arrays.toString(arr));
+        int sum = (int) (Math.random() * 20);
+        System.out.println("sum: " + sum);
+        int a = arr[0], b = arr[1];
+        for (int i = 0; i < arr.length - 1; i++) {
+            int delay = Math.abs(sum - a - b);
+            int delay2 = Math.abs(sum - arr[i] - arr[i + 1]);
+            if (delay >= delay2) {
+                a = arr[i];
+                b = arr[i + 1];
+            } else {
+                System.out.println("times: " + i);
+                break;
+            }
+        }
+        System.out.println("a = " + a + ", b = " + b);
+    }
 }
