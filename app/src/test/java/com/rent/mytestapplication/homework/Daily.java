@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -326,27 +327,75 @@ public class Daily {
     }
 
     /**
-     * 给你一个整数sum，从N个有序元素的数组中寻找元素a,b，使得a+b的结果最接近sum，最快的平均时间复杂度是多少？ 并给出你的算法。
+     * day28 给你一个整数sum，从N个有序元素的数组中寻找元素a,b，使得a+b的结果最接近sum，最快的平均时间复杂度是多少？ 并给出你的算法。
      */
     @Test
-    public void sum() {
+    public void closestSum() {
         int[] arr = randomArray(10);
-        bubbleSort(arr, true);
-        System.out.println("random arr: " + Arrays.toString(arr));
+        Arrays.sort(arr);
+        System.out.println("arr: " + Arrays.toString(arr));
         int sum = (int) (Math.random() * 20);
         System.out.println("sum: " + sum);
-        int a = arr[0], b = arr[1];
-        for (int i = 0; i < arr.length - 1; i++) {
-            int delay = Math.abs(sum - a - b);
-            int delay2 = Math.abs(sum - arr[i] - arr[i + 1]);
-            if (delay >= delay2) {
-                a = arr[i];
-                b = arr[i + 1];
+
+        int mid = arr.length / 2;
+        int start = 0, end = arr.length - 1;
+        int a, b;
+        while (true) {
+            int total = arr[mid] + arr[mid + 1];
+            if (total == sum) {
+                a = mid;
+                b = mid + 1;
+                break;
+            } else if (total > sum) {
+                end = mid;
             } else {
-                System.out.println("times: " + i);
+                start = mid;
+            }
+            mid = (start + end) / 2;
+            if (start == mid) {
+                if (mid == 0) {
+                    a = 0;
+                    b = 1;
+                } else if (mid == arr.length - 1) {
+                    b = arr.length - 1;
+                    a = b - 1;
+                } else {
+                    int left = Math.abs(sum - arr[mid - 1] - arr[mid]);
+                    int right = Math.abs(sum - arr[mid] - arr[mid + 1]);
+                    if (left > right) {
+                        a = mid;
+                        b = mid + 1;
+                    } else {
+                        a = mid - 1;
+                        b = mid;
+                    }
+                }
                 break;
             }
         }
-        System.out.println("a = " + a + ", b = " + b);
+        System.out.println(String.format(Locale.getDefault(), "arr[%d] = %d, arr[%d] = %d", a, arr[a], b, arr[b]));
+    }
+
+    /**
+     * day24 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法
+     */
+    @Test
+    public void daily24() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i + ": " + count(i));
+        }
+    }
+
+    private int count(int length) {
+        if (length == 1) {
+            return 1;
+        }
+        int total = 0;
+        // 统计1级阶梯到n-1级阶梯的次数
+        for (int i = 1; i < length; i++) {
+            total += count(i);
+        }
+        // 加上本身的一次
+        return total + 1;
     }
 }
