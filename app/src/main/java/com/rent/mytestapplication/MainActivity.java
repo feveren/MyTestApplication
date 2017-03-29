@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(removePkgName(com.rent.mytestapplication.nestedscroll.NestedScrollActivity.class));
         list.add(removePkgName(TextImageSpanActivity.class));
         list.add(removePkgName(ReboundActivity.class));
+        list.add(removePkgName(BottomNavigationBarActivity.class));
         list.add("method:testClick");
         list.add("method:showBottomSheet");
 
