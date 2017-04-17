@@ -62,6 +62,53 @@ public class RetrofitActivity extends BaseActivity implements BaseView {
 //                });
     }
 
+    public void testGet(View v) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.github.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(HttpClient.getHttpClient())
+                .build();
+        Test2Service service = retrofit.create(Test2Service.class);
+        Call<List<Repo>> call = service.list("feveren", "111");
+        call.enqueue(new Callback<List<Repo>>() {
+
+            @Override
+            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
+                List<Repo> list = response.body();
+                for (Repo repo : list) {
+                    System.out.println(repo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Repo>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void postPost(View v) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.github.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(HttpClient.getHttpClient())
+                .build();
+        Test2Service service = retrofit.create(Test2Service.class);
+        Call<List<Repo>> call = service.post("feveren", "111", "aa@163.com");
+        call.enqueue(new Callback<List<Repo>>() {
+
+            @Override
+            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Repo>> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void list(View v) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
@@ -242,8 +289,7 @@ public class RetrofitActivity extends BaseActivity implements BaseView {
 
     public void getRxBean(View v) {
         TestService service = Requester.get().create(TestService.class);
-        CallObservable<Result<Detail>> obz = service.getRxCardDetail("46f1c9142d255075c-220e");
-        obz.subscribe(this, new Observer<Result<Detail>>() {
+        service.getRxCardDetail("46f1c9142d255075c-220e").subscribe(this, new Observer<Result<Detail>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 System.out.println("onSubscribe");
@@ -389,7 +435,7 @@ public class RetrofitActivity extends BaseActivity implements BaseView {
 //                });
 
         ImageUploadProvider provider = new ImageUploadProviderImpl();
-        provider.upload(new UploadBean(Environment.getExternalStorageDirectory() + "/upload1.png"))
+        provider.upload(new UploadBean(Environment.getExternalStorageDirectory() + "/upload1.jpg"))
                 .composeCommon(this)
                 .map(new FileConverterFunction())
                 .subscribe(new DialogObserver<Result<List<UploadBean>>>(this, "上传中") {

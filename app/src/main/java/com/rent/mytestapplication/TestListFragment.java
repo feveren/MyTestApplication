@@ -1,8 +1,11 @@
 package com.rent.mytestapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +20,68 @@ import java.util.List;
  * Created by Administrator on 2016/8/22.
  */
 public class TestListFragment extends Fragment {
-
     private String mText;
+    private boolean mRecycler;
 
-    public TestListFragment(String text) {
+    public TestListFragment(String text, boolean recycler) {
         this.mText = text;
+        this.mRecycler= recycler;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ListView listView = new ListView(getContext());
-        listView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             list.add(mText + ", index " + i);
         }
-        listView.setAdapter(new ListAdapter(list));
-        return listView;
+
+        if (mRecycler) {
+            RecyclerView recyclerView = new RecyclerView(getContext());
+            recyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(new RecycleAdapter(getContext(), list));
+            return recyclerView;
+        } else {
+            ListView listView = new ListView(getContext());
+            listView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            listView.setAdapter(new ListAdapter(list));
+            return listView;
+        }
+    }
+
+    private class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder> {
+        private List<String> mData;
+        private Context mContext;
+
+        RecycleAdapter(Context context, List<String> data) {
+            this.mContext = context;
+            this.mData = data;
+        }
+
+        @Override
+        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new Holder((LayoutInflater.from(mContext).inflate(R.layout.card_view_item, parent, false)));
+        }
+
+        @Override
+        public void onBindViewHolder(Holder holder, int position) {
+            holder.tv.setText(mData.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+        class Holder extends RecyclerView.ViewHolder {
+            TextView tv;
+
+            Holder(View itemView) {
+                super(itemView);
+                tv = (TextView) itemView.findViewById(R.id.text);
+            }
+        }
     }
 
     private class ListAdapter extends BaseAdapter {

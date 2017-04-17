@@ -56,7 +56,7 @@
         <activity android:name=".nestedscroll.NestedScrollActivity" />
         <activity android:name=".TextImageSpanActivity" />
         <activity android:name=".anim.ReboundActivity" />
-        <activity android:name=".BottomNavigationBarActivity"></activity>
+        <activity android:name=".BottomNavigationBarActivity"/>
     </application>
 
 </manifest>

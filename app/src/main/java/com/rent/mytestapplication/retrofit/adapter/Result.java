@@ -20,7 +20,7 @@ import java.io.IOException;
 import retrofit2.Response;
 
 /** The result of executing an HTTP request. */
-final class Result<T> {
+public final class Result<T> {
   public static <T> Result<T> error(Throwable error) {
     if (error == null) throw new NullPointerException("error == null");
     return new Result<>(null, error);

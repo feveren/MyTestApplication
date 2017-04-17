@@ -23,10 +23,6 @@ import io.reactivex.exceptions.Exceptions;
 import io.reactivex.plugins.RxJavaPlugins;
 import retrofit2.Response;
 
-/**
- * 改为继承{@link com.rent.mytestapplication.retrofit.observable.CallObservable}
- * edit by RenTao
- */
 final class ResultObservable<T> extends com.rent.mytestapplication.retrofit.observable.CallObservable<Result<T>> {
   private final Observable<Response<T>> upstream;
 

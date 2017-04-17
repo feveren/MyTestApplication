@@ -20,6 +20,5 @@
         android:background="@android:color/holo_blue_dark"
         android:gravity="center_vertical"
         android:onClick="start"
-        android:text="click to search"
-        android:transitionName="searchBar" />
+        android:text="click to search" />
 </LinearLayout>

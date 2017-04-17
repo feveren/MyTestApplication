@@ -37,7 +37,7 @@ public class App extends Application {
                         params.put("userId", "46f1c9142d255075c-220e");
                         params.put("appVersion", "5.9.12");
                         params.put("appOs", "android");
-                        params.put("token", "8f319bade7229bf908cb5c50108bebc3");
+                        params.put("token", "2a9995190d931de3ea42511dc4319d21");
                         // post和put方法需要在body中放userId
                         if ("POST".equals(method) || "PUT".equals(method)) {
                             body.put("userId", "46f1c9142d255075c-220e");

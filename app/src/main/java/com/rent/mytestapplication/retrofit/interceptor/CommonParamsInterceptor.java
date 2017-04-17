@@ -91,7 +91,6 @@ public class CommonParamsInterceptor implements Interceptor {
         // 通用的Params
         if (params != null && !params.isEmpty()) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                // add方法会对参数进行编码
                 builder.addFormDataPart(entry.getKey(), entry.getValue());
             }
         }

@@ -13,14 +13,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:layout_scrollFlags="scroll|enterAlways"
+            android:minHeight="50dp"
+            app:layout_scrollFlags="scroll"
             android:text="title"/>
 
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?android:attr/actionBarSize"-->
-            <!--app:layout_scrollFlags="scroll|enterAlways" />-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
     </android.support.design.widget.AppBarLayout>
 

@@ -18,6 +18,7 @@ import com.rent.mytestapplication.activityoptions.ActOptsActivity;
 import com.rent.mytestapplication.aidl.AidlActivity;
 import com.rent.mytestapplication.anim.BallFallingActivity;
 import com.rent.mytestapplication.anim.ReboundActivity;
+import com.rent.mytestapplication.anim.SpringActivity;
 import com.rent.mytestapplication.anim.VectorActivity;
 import com.rent.mytestapplication.mvp.MVPActivity;
 import com.rent.mytestapplication.retrofit.RetrofitActivity;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(removePkgName(TextImageSpanActivity.class));
         list.add(removePkgName(ReboundActivity.class));
         list.add(removePkgName(BottomNavigationBarActivity.class));
+        list.add(removePkgName(SpringActivity.class));
         list.add("method:testClick");
         list.add("method:showBottomSheet");
 

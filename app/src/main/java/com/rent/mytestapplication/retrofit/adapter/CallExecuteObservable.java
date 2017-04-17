@@ -24,10 +24,10 @@ import io.reactivex.plugins.RxJavaPlugins;
 import retrofit2.Call;
 import retrofit2.Response;
 
-final class CallObservable<T> extends Observable<Response<T>> {
+final class CallExecuteObservable<T> extends Observable<Response<T>> {
   private final Call<T> originalCall;
 
-  CallObservable(Call<T> originalCall) {
+  CallExecuteObservable(Call<T> originalCall) {
     this.originalCall = originalCall;
   }
 
